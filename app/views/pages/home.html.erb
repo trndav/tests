@@ -1,0 +1,17 @@
+<h1>Pages#home</h1>
+<p>Find me in app/views/pages/home.html.erb</p>
+
+<% if current_user %>
+    <p>Hello <%= current_user.email %>!</p>
+    <p>You have <%= current_user.role %> role.</p>
+
+    <% if current_user.moderator? || current_user.admin? %>
+        <p>Site have <%= pluralize(User.count, "user") %>.</p>
+    <% end %>
+
+    <%= link_to "Logout", destroy_user_session_path, "data-turbo-method": :delete %>
+<% else %>
+    <p>You are not signed in.</p>
+    <%= link_to "Login", new_user_session_path %> | 
+    <%= link_to "Create Account", new_user_registration_path %>
+<% end %>
